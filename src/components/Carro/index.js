@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Bubble } from '../bubble'
 import {Container, CarroB, Lista, ListaContainer, Elemento, Borrar} from "./styled";
 
-export const Carro = ({ cantidad, productos }) => {
+export const Carro = ({ cantidad, productos, borrardelCarro }) => {
 
     const [mostrarCarro, setMostrarCarro] = useState(false)
 
@@ -27,10 +27,8 @@ export const Carro = ({ cantidad, productos }) => {
                                 return (
                                     <Elemento>
                                         <img height={25} alt={x.nombre} src={x.imagen} />
-                                        <span><Borrar onClick={()=>{productos.pop(x)}}>X</Borrar> {x.nombre}</span>
-                                        <span>
-                                                ({x.cantidad} x {x.precio.toLocaleString()}) = <strong>{(x.cantidad * x.precio).toLocaleString()}</strong>
-                                            </span>
+                                        <span>({x.cantidad} x {x.precio.toLocaleString()}) = <strong>{(x.cantidad * x.precio).toLocaleString()}</strong></span>
+                                        <span>{x.nombre} <Borrar onClick={()=>borrardelCarro(x)}>X</Borrar></span>
                                     </Elemento>
                                 )
                             })

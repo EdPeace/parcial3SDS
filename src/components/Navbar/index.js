@@ -5,7 +5,7 @@ export const Navbar = (props) => {
     return(
         <NavBar>
             <p>Logo</p>
-            <Carro cantidad={props.cantidad} productos={props.productos}/>
+            <Carro cantidad={props.cantidad} productos={props.productos} borrardelCarro={props.borrardelCarro}/>
         </NavBar>
     )
 }

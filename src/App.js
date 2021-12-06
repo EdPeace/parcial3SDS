@@ -11,7 +11,6 @@ const informacion ={
         {id:5,nombre:'Macbook',precio:1600,imagen:'/imgs/macbook-pro.png'},
     ],
     carrito:[
-
     ]
 }
 
@@ -27,10 +26,20 @@ function App() {
         }
         setData({...data})
     }
+    const borrardelCarro = (x) => {
+        // eslint-disable-next-line no-restricted-globals
+        const r = confirm(`Seguro que quieres eliminar ${x.nombre} de tu carrito?`)
+        if(r === true){
+            data.carrito.splice(data.carrito.indexOf(x),1)
+            setData({...data})
+        }
+    };
+
+
     let cantidad = data.carrito.reduce((acum, actual) => acum + actual.cantidad, 0)
   return (
       <Fragment>
-        <Navbar cantidad={cantidad} productos={data.carrito}/>
+        <Navbar cantidad={cantidad} productos={data.carrito} borrardelCarro={borrardelCarro}/>
         <Articulos data={data} agregarAlCarro={agregarAlCarro}/>
       </Fragment>
   );
