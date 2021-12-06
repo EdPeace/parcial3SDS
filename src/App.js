@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import {Articulos} from './components/Articulos'
+import {Fragment, useState} from "react";
+import {Navbar} from "./components/Navbar";
+
+const informacion ={
+    articulos:[
+        {id:1,nombre:'Homepod Mini',precio:99,imagen:'/imgs/homepod-mini.jpg'},
+        {id:2,nombre:'iMac',precio:1200,imagen:'/imgs/imac.jpeg'},
+        {id:3,nombre:'iPad Mini',precio:400,imagen:'/imgs/ipad-mini.jpg'},
+        {id:4,nombre:'iPhone 13 Pro',precio:1100,imagen:'/imgs/iphone13-pro.jpg'},
+        {id:5,nombre:'Macbook',precio:1600,imagen:'/imgs/macbook-pro.png'},
+    ],
+    carrito:[
+
+    ]
+}
+
+
 
 function App() {
+    const [data,setData]=useState(informacion)
+    const agregarAlCarro = (pr)=>{
+        if (data.carrito.find(x=> x.id === pr.id)){
+            data.carrito = data.carrito.map(x => x.id === pr.id ? ({...x, cantidad: x.cantidad + 1}) : x)
+        }else{
+            data.carrito.push({...pr,cantidad:1})
+        }
+        setData({...data})
+    }
+    let cantidad = data.carrito.reduce((acum, actual) => acum + actual.cantidad, 0)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Fragment>
+        <Navbar cantidad={cantidad} productos={data.carrito}/>
+        <Articulos data={data} agregarAlCarro={agregarAlCarro}/>
+      </Fragment>
   );
 }
 
